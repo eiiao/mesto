@@ -1,0 +1,9 @@
+.card-list__footer {
+    flex-grow: 1;
+    background: #FFFFFF;
+    padding-right: 15px;
+    padding-left: 21px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
