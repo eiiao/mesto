@@ -1,25 +1,19 @@
 let openButton = document.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
 let closeButton = popup.querySelector('.popup__button-close');
+let profName= document.querySelector('.profile__info-name');
+let profDescrip = document.querySelector('.profile__info-description');
+let form = document.querySelector('.form');
 
 function openPopup() {
+    form.elements.name.value= profName.textContent;
+    form.elements.description.value= profDescrip.textContent;
     popup.classList.add('popup_opened');
 }
 
-function closePopup() {
+function closePopup() {  
     popup.classList.remove('popup_opened');
 }
-
-openButton.addEventListener('click', openPopup);
-
-closeButton.addEventListener('click', closePopup);
-
-
-
-let profName= document.querySelector('.profile__info-name');
-let profDescrip = document.querySelector('.profile__info-description');
-let form = document.querySelector('.popup__form');
-
 
 function editProfile(event) {
     event.preventDefault();
@@ -28,4 +22,7 @@ function editProfile(event) {
     closePopup();
 }
 
+
+openButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
 form.addEventListener('submit',editProfile)

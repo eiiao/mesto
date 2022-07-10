@@ -1,4 +1,4 @@
-.popup__form-input {
+.form__input {
     height: 14px;
     padding-bottom: 13px;
     border: none;
@@ -6,4 +6,5 @@
     margin-top: 30px;
     font-weight: 400;
     font-size: 14px;
+    font-family: inherit;
 }
