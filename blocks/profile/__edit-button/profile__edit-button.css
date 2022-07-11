@@ -9,7 +9,7 @@
     margin-left: 18px;
     border: 1px solid #FFFFFF;
     cursor: pointer;
-
+    flex-shrink: 0;
 }
 
 .profile__edit-button:hover {
