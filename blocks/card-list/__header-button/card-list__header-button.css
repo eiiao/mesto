@@ -1,0 +1,19 @@
+.card-list__header-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    background-image: url(../../../images/icons/delete-button.svg);
+    width: 18px;
+    height: 19px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.card-list__header-button:hover {
+    opacity: .6;
+}

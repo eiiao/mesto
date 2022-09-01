@@ -1,4 +1,5 @@
 .card-list__item {
+    position: relative;
     width: 282px;
     height: 361px;
     display: flex;
