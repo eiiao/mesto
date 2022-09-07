@@ -25,6 +25,7 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__description/popup__description.css);
 @import url(../blocks/popup/__image-zoom/popup__image-zoom.css);
+@import url(../blocks/popup/popup_type_card-zoom/popup_type_card-zoom.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__button-submit/form__button-submit.css);
 @import url(../blocks/form/__input/form___input.css);

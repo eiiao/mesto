@@ -32,11 +32,11 @@
 
         </section>
 
-        
+
     </main>
     <div class="popup popup_type_user">
-        <div class="popup__container"> 
-            <button class="popup__button-close" type="button" ></button>
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
             <form class="form" name="edit-form">
                 <h2 class="form__title">Редактировать профиль</h2>
                 <input class="form__input" type="text" name="name">
@@ -46,8 +46,8 @@
         </div>
     </div>
     <div class="popup popup_type_card">
-        <div class="popup__container"> 
-            <button class="popup__button-close" type="button" ></button>
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
             <form class="form" name="add-place">
                 <h2 class="form__title">Новое место</h2>
                 <input class="form__input" type="text" name="name" placeholder="Название">
@@ -57,9 +57,10 @@
         </div>
     </div>
     <div class="popup popup_type_card-zoom">
-        <div class="popup__container"> 
-            <button class="popup__button-close" type="button" ></button>
-            <img class="popup__image-zoom" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Архыз">
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
+            <img class="popup__image-zoom"
+                src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Архыз">
             <p class="popup__description"></p>
         </div>
 
@@ -67,6 +68,19 @@
     <footer class="footer page__section">
         <p class="footer__text"> © 2022 Mesto Russia</p>
     </footer>
+
+    <template id="card-list__item">
+        <div class="card-list__item">
+            <button class="card-list__header-button"></button>
+            <img src="" alt="" class="card-list__photo">
+            <div class="card-list__footer">
+                <h2 class="card-list__footer-name"></h2>
+                <button class="card-list__footer-button"></button>
+            </div>
+        </div>
+    </template>
+
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 
