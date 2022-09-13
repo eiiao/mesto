@@ -14,6 +14,8 @@ const popupDescrip = zoomPopup.querySelector('.popup__description');
 const popupImg = zoomPopup.querySelector('.popup__image-zoom');
 const zoomPopupCloseButton = zoomPopup.querySelector('.popup__button-close');
 const cardTemplate = document.querySelector('#card-list__item').content;
+const formElement = document.querySelector('.form');
+const formInput = formElement.querySelector('.form__input');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -21,6 +23,12 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+}
+
+function closeByOverlay(event) {
+  if (event.target === event.currentTarget) {
+    closePopup(event.target);
+  }
 }
 
 function openUserPopup() {
@@ -106,9 +114,19 @@ function renderCard(name, link) {
   cardsContainer.prepend(createCard(name, link));
 }
 
-
 userPopupOpenButton.addEventListener('click', openUserPopup);
 userPopupCloseButton.addEventListener('click', closeUserPopup);
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27 || evt.key === "Escape") {
+    closeZoomPopup();
+    closeCardPopup();
+    closeUserPopup();
+  };
+});
+userPopup.addEventListener('mousedown', closeByOverlay)
+cardPopup.addEventListener('mousedown', closeByOverlay)
+zoomPopup.addEventListener('mousedown', closeByOverlay)
+
 userForm.addEventListener('submit', editProfile)
 
 cardPopupOpenButton.addEventListener('click', openCardPopup);
@@ -117,9 +135,7 @@ cardForm.addEventListener('submit', addCard);
 zoomPopupCloseButton.addEventListener('click', closeZoomPopup);
 
 
-
 initialCards.forEach(function (el) {
   const cardElement = createCard(el.name, el.link);
   cardsContainer.append(cardElement);
 })
-
