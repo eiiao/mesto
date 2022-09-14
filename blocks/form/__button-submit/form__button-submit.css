@@ -1,5 +1,5 @@
 .form__button-submit {
-    margin-top: 48px;
+    margin-top: 18px;
     padding-top: 14px;
     padding-bottom: 18px;
     background-color: #000000;
@@ -23,6 +23,6 @@
     }
 }
 
-.form__button-submit:hover {
+.form__button-submit:not(:disabled):hover {
     opacity: .8;
 }
