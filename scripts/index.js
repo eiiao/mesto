@@ -5,6 +5,7 @@ const profDescrip = document.querySelector('.profile__info-description');
 const userForm = document.querySelector('.form');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
 const cardPopup = document.querySelector('.popup_type_card');
+const cardPopupSubmitButton = cardPopup.querySelector('.form__button-submit')
 const cardsContainer = document.querySelector('.card-list');
 const cardForm = cardPopup.querySelector('.form');
 const zoomPopup = document.querySelector('.popup_type_card-zoom');
@@ -42,6 +43,7 @@ function openUserPopup() {
 function openCardPopup() {
   openPopup(cardPopup);
   cardForm.reset()
+  disableButton(cardPopupSubmitButton, validationConfig)
 }
 
 function editProfile(event) {

@@ -40,13 +40,21 @@ const hideInputError = (formElement, inputElement, config) => {
   errorElement.textContent = '';
 };
 
+const disableButton = (button,config) => {
+  button.classList.add(config.inactiveButtonClass);
+  button.setAttribute('disabled', 'disabled')
+}
+
+const enableButton = (button,config) => {
+  button.classList.remove(config.inactiveButtonClass);
+  button.removeAttribute('disabled', 'disabled')
+}
+
 const toggleButtonState = (inputList, button, config) => {
   if (hasInvalidInput(inputList)) {
-    button.classList.add(config.inactiveButtonClass);
-    button.setAttribute('disabled', 'disabled')
+    disableButton(button,config)
   } else {
-    button.classList.remove(config.inactiveButtonClass);
-    button.removeAttribute('disabled')
+    enableButton(button,config)
   }
 }
 
