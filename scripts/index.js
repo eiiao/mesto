@@ -1,3 +1,6 @@
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
+
 const userPopupOpenButton = document.querySelector('.profile__edit-button');
 const userPopup = document.querySelector('.popup_type_user');
 const profName = document.querySelector('.profile__info-name');
@@ -14,6 +17,24 @@ const popupImg = zoomPopup.querySelector('.popup__image-zoom');
 const cardTemplate = document.querySelector('#card-list__item').content;
 const formElement = document.querySelector('.form');
 const formInput = formElement.querySelector('.form__input');
+
+
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button-submit',
+  inactiveButtonClass: 'form__button-submit_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_visible'
+};
+
+
+const formList = Array.from(document.querySelectorAll(validationConfig.formSelector)).map((formElement) => {
+ const form = new FormValidator (validationConfig, formElement);
+ form.enableValidation ();
+ return form;
+});
+
 
 function closeByEsc(evt) {
   if (evt.key === "Escape") {
@@ -43,7 +64,7 @@ function openUserPopup() {
 function openCardPopup() {
   openPopup(cardPopup);
   cardForm.reset()
-  disableButton(cardPopupSubmitButton, validationConfig)
+  formList[0].disableButton(cardPopupSubmitButton, validationConfig)
 }
 
 function editProfile(event) {
@@ -55,44 +76,24 @@ function editProfile(event) {
 
 function addCard(event) {
   event.preventDefault();
-  renderCard(cardForm.elements.name.value, cardForm.elements.url.value)
+  renderCard ({name: cardForm.elements.name.value, link: cardForm.elements.url.value})
   closePopup(cardPopup);
 }
 
-function createCard(name, link) {
-  const cardElement = cardTemplate.querySelector('.card-list__item').cloneNode(true);
-  const deleteElement = cardElement.querySelector('.card-list__header-button')
-  const imageElement = cardElement.querySelector('.card-list__photo')
-  imageElement.setAttribute('src', link);
-  imageElement.setAttribute('alt', name);
-  const nameElement = cardElement.querySelector('.card-list__footer-name')
-  nameElement.textContent = name;
-  const likeElement = cardElement.querySelector('.card-list__footer-button')
 
-  function likeCard() {
-    likeElement.classList.toggle('card-list__footer-button_active');
-  }
 
-  function openZoomCardPopup() {
-    openPopup(zoomPopup);
-    popupDescrip.textContent = name;
-    popupImg.setAttribute('src', link);
-    popupImg.setAttribute('alt', name);
-  }
-
-  function deleteCard() {
-    cardElement.remove();
-  }
-
-  likeElement.addEventListener('click', likeCard);
-  deleteElement.addEventListener('click', deleteCard);
-  imageElement.addEventListener('click', openZoomCardPopup);
-  return cardElement;
+function renderCard(data) {
+  const card = new Card ({...data,onClick:openZoomCardPopup})
+  cardsContainer.prepend(card.getView());
 }
 
-function renderCard(name, link) {
-  cardsContainer.prepend(createCard(name, link));
+function openZoomCardPopup(name, link) {
+  openPopup(zoomPopup);
+  popupDescrip.textContent = name;
+  popupImg.setAttribute('src', link);
+  popupImg.setAttribute('alt', name);
 }
+
 
 userPopupOpenButton.addEventListener('click', openUserPopup);
 
@@ -111,7 +112,7 @@ document.querySelectorAll('.popup').forEach(popup => {
   });
 });
 
-initialCards.forEach(function (el) {
-  const cardElement = createCard(el.name, el.link);
-  cardsContainer.append(cardElement);
-})
+initialCards.forEach(renderCard);
+
+
+
