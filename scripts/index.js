@@ -1,11 +1,12 @@
 import Card from './Card.js'
 import FormValidator from './FormValidator.js'
+import initialCards from './cards.js'
 
 const userPopupOpenButton = document.querySelector('.profile__edit-button');
 const userPopup = document.querySelector('.popup_type_user');
 const profName = document.querySelector('.profile__info-name');
 const profDescrip = document.querySelector('.profile__info-description');
-const userForm = document.querySelector('.form');
+const userForm = userPopup.querySelector('.form');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
 const cardPopup = document.querySelector('.popup_type_card');
 const cardPopupSubmitButton = cardPopup.querySelector('.form__button-submit')
@@ -14,10 +15,6 @@ const cardForm = cardPopup.querySelector('.form');
 const zoomPopup = document.querySelector('.popup_type_card-zoom');
 const popupDescrip = zoomPopup.querySelector('.popup__description');
 const popupImg = zoomPopup.querySelector('.popup__image-zoom');
-const cardTemplate = document.querySelector('#card-list__item').content;
-const formElement = document.querySelector('.form');
-const formInput = formElement.querySelector('.form__input');
-
 
 const validationConfig = {
   formSelector: '.form',
@@ -28,11 +25,10 @@ const validationConfig = {
   errorClass: 'form__input-error_visible'
 };
 
-
-const formList = Array.from(document.querySelectorAll(validationConfig.formSelector)).map((formElement) => {
- const form = new FormValidator (validationConfig, formElement);
- form.enableValidation ();
- return form;
+const validators = {}
+ Array.from(document.querySelectorAll(validationConfig.formSelector)).forEach((form) => {
+  validators[form.name] = new FormValidator(validationConfig, form)
+  validators[form.name].enableValidation ();
 });
 
 
@@ -64,7 +60,7 @@ function openUserPopup() {
 function openCardPopup() {
   openPopup(cardPopup);
   cardForm.reset()
-  formList[0].disableButton(cardPopupSubmitButton, validationConfig)
+  validators[cardForm.name].disableButton()
 }
 
 function editProfile(event) {

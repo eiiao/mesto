@@ -10,22 +10,23 @@ class FormValidator {
   };
 
   _setEventListeners() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    const button = this._formElement.querySelector(this._config.submitButtonSelector);
-    this._toggleButtonState(inputList, button);
-    inputList.forEach((inputElement) => {
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+   
+    this._button = this._formElement.querySelector(this._config.submitButtonSelector);
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, button);
+        this._toggleButtonState();
       });
     });
   };
 
-  _toggleButtonState(inputList, button) {
-    if (this._hasInvalidInput(inputList)) {
-      this.disableButton(button)
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this.disableButton()
     } else {
-      this.enableButton(button)
+      this.enableButton()
     }
   }
 
@@ -37,20 +38,20 @@ class FormValidator {
     }
   };
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
-  disableButton(button) {
-    button.classList.add(this._config.inactiveButtonClass);
-    button.setAttribute('disabled', 'disabled')
+  disableButton() {
+    this._button.classList.add(this._config.inactiveButtonClass);
+    this._button.setAttribute('disabled', 'disabled')
   }
 
-  enableButton(button) {
-    button.classList.remove(this._config.inactiveButtonClass);
-    button.removeAttribute('disabled', 'disabled')
+  enableButton() {
+    this._button.classList.remove(this._config.inactiveButtonClass);
+    this._button.removeAttribute('disabled', 'disabled')
   }
 
   _showInputError(inputElement, errorMessage) {
