@@ -1,8 +1,8 @@
 class Card {
-    constructor({ name, link, onClick}) {
+    constructor({ name, link, handleCardClick}) {
         this._name = name;
         this._link = link;
-        this._onClick = onClick;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplateCard() {
@@ -48,7 +48,7 @@ class Card {
    } 
 
    _clickImage = () => {
-    this._onClick (this._name, this._link);
+    this._handleCardClick (this._name, this._link);
    }
 }
 
