@@ -1,12 +1,13 @@
 class Card {
-    constructor({ name, link, handleCardClick}) {
+    constructor({ name, link, handleCardClick,cardTemplateSelector}) {
         this._name = name;
         this._link = link;
         this._handleCardClick = handleCardClick;
+        this._cardTemplateSelector = cardTemplateSelector;
     }
 
     _getTemplateCard() {
-        const cardTemplate = document.querySelector('#card-list__item').content;
+        const cardTemplate = document.querySelector(this._cardTemplateSelector).content;
         const cardElement = cardTemplate.querySelector('.card-list__item').cloneNode(true);
 
         return cardElement;
