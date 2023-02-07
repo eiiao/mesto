@@ -42,11 +42,6 @@ const cardPopup = new PopupWithForm('.popup_type_card', (data) => {
   validators['add-place'].disableButton()
 })
 
-const infoObject = userInfo.getUserInfo();
-nameInput.value = infoObject.userName;
-jobInput.value = infoObject.description;
-validators['edit-form'].enableButton()
-
 zoomPopup.setEventListeners()
 
 cardPopup.setEventListeners()
@@ -63,6 +58,10 @@ function createCard(name,link) {
 }
 userPopupOpenButton.addEventListener('click', () => {
   userPopup.open();
+  const infoObject = userInfo.getUserInfo();
+  nameInput.value = infoObject.userName;
+  jobInput.value = infoObject.description;
+  validators['edit-form'].enableButton()
 });
 
 cardPopupOpenButton.addEventListener('click', () => {
