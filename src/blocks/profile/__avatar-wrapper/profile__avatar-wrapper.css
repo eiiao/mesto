@@ -1,0 +1,16 @@
+.profile__avatar-wrapper {
+    position: relative;
+}
+.profile__avatar-wrapper:hover::after {
+    position: absolute;
+    content:'';
+    width: 120px;
+    top: 0;
+    left: 0;
+    height: 120px;
+    background-image: url(../../../images/icons/edit.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,.8);
+    pointer-events: none;
+}

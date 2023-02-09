@@ -14,7 +14,9 @@
     </header>
     <main class="page__main">
         <section class="profile page__section">
-            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+            <div class="profile__avatar-wrapper">
+                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+            </div>
             <div class="profile__info">
                 <div class="profile__row">
                     <h1 class="profile__info-name">Жак-Ив Кусто</h1>
@@ -44,8 +46,8 @@
                     <span class="name-input-error form__input-error"></span>
                 </label>
                 <label class="form__field">
-                    <input class="form__input" type="text" name="description" placeholder="О себе"
-                        minlength="2" maxlength="200" required>
+                    <input class="form__input" type="text" name="description" placeholder="О себе" minlength="2"
+                        maxlength="200" required>
                     <span class="descrip-input-error form__input-error"></span>
                 </label>
                 <button class="form__button-submit" type="submit">Сохранить</button>
@@ -79,6 +81,33 @@
         </div>
 
     </div>
+    
+    <div class="popup popup_type_avatar">
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
+            <form class="form" name="avatar" novalidate>
+                <h2 class="form__title">Обновить аватар</h2>
+                <label class="form__field">
+                    <input class="form__input" type="url" name="avatar" placeholder="Ссылка на картинку" required>
+                    <span class="url-input-error form__input-error"></span>
+                </label>
+                <button class="form__button-submit form__button-submit_disabled" type="submit" disabled>Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_remove">
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
+            <form class="form" name="remove-form" novalidate>
+                <input type="text" name="id" hidden>
+                <h2 class="form__title">Вы уверены?</h2>
+                <button class="form__button-submit form__button-submit_disabled" type="submit" disabled>Да</button>
+            </form>
+        </div>
+    </div>
+
+
     <footer class="footer page__section">
         <p class="footer__text"> © 2022 Mesto Russia</p>
     </footer>
@@ -90,7 +119,10 @@
                 class="card-list__photo">
             <div class="card-list__footer">
                 <h2 class="card-list__footer-name"></h2>
-                <button class="card-list__footer-button"></button>
+                <div>
+                    <button class="card-list__footer-button"></button>
+                    <span class="card-list__likes"></span>
+                </div>
             </div>
         </div>
     </template>

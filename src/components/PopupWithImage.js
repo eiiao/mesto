@@ -7,7 +7,6 @@ export default class PopupWithImage extends Popup {
     }
     open(name, link) {
         this._popupDescrip.textContent = name;
-        console.log(this._popupDescrip)
         this._popupImg.setAttribute('src', link);
         this._popupImg.setAttribute('alt', name);
 
