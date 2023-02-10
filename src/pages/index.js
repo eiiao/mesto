@@ -30,10 +30,25 @@ const userInfo = new UserInfo({
   descriptionSelector,
   avatarSelector
 })
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo({userName: userData.name, description: userData.about, id: userData._id,avatar: userData.avatar})
+    cards.forEach(card => {
+      const userId = userInfo.getUserInfo().id;
+      cardList.addItem(createCard({
+        name: card.name,
+        id: card._id,
+        link: card.link,
+        likes: card.likes,
+        isOwner: card.owner._id === userId,
+        isLiked: card.likes.some(({_id})=>userId===_id),
+      }))
+    })
+  })
+  .catch(err => {
+    console.error(err)
+  });
 
-api.getUserInfo().then(info=> {
-  userInfo.setUserInfo({userName: info.name, description: info.about, id: info._id,avatar: info.avatar})
-})
 const cardList = new Section({
   items: [],
   renderer: (data) => {
@@ -50,34 +65,20 @@ const cardList = new Section({
 },
 containerSelector)
 
-api.getInitialCards().then(cards=> {
-  cards.forEach(card => {
-    const userId = userInfo.getUserInfo().id;
-    cardList.addItem(createCard({
-      name: card.name,
-      id: card._id,
-      link: card.link,
-      likes: card.likes,
-      isOwner: card.owner._id === userId,
-      isLiked: card.likes.some(({_id})=>userId===_id),
-    }))
-  })
-})
 const userPopup = new PopupWithForm('.popup_type_user', (data) => {
   userPopup.setLoading(true)
   api.updateUserInfo({name: data.userName, about: data.description }).then(()=> {
     userInfo.setUserInfo({ userName: data.userName, description: data.description })
     userPopup.close()
-    userPopup.setLoading(false)
-  })
+  }).catch(err=>console.error(err))
+  .finally(()=>userPopup.setLoading(false))
 })
 
 const cardPopup = new PopupWithForm('.popup_type_card', (data) => {
   cardPopup.setLoading(true)
   api.addCard({name: data.placeName, link: data.url}).then((response)=> {
     const userId = userInfo.getUserInfo().id;
-
-    cardList.addItem(createCard({
+    cardList.prependItem(createCard({
       name: response.name,
       id: response._id,
       link: response.link,
@@ -87,8 +88,8 @@ const cardPopup = new PopupWithForm('.popup_type_card', (data) => {
     }))
     cardPopup.close()
     validators['add-place'].disableButton()
-    cardPopup.setLoading(false)
-  })
+  }).catch(err=>console.error(err))
+  .finally(()=>cardPopup.setLoading(false))
 })
 
 
@@ -98,8 +99,8 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar',({avatar}) => {
     userInfo.setUserInfo({avatar})
     avatarPopup.close()
     validators.avatar.disableButton()
-    avatarPopup.setLoading(false)
-  })
+  }).catch(err=>console.error(err))
+  .finally(()=>avatarPopup.setLoading(false))
 })
 
 const removePopup = new PopupWithConfirm('.popup_type_remove',({id})=> {
@@ -146,8 +147,8 @@ function createCard({
           api.deleteCard(id).then(()=>{
             deleteCard();
             removePopup.close()
-            removePopup.setLoading(false)
-          })
+          }).catch(err=>console.error(err))
+          .finally(()=>removePopup.setLoading(false))
         })
       },
       handleLike: api.like,

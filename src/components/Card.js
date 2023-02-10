@@ -65,23 +65,21 @@ class Card {
     }
 
     _toggleLike = () => {
-
         if (this._isLiked) {
             this._handleDislike(this._id).then(({likes}) => {
                 this._likeElement.classList.remove('card-list__footer-button_active')
                 this._likes = likes.length
                 this._isLiked = !this._isLiked
                 this._likesCount.textContent = likes.length
-            })
+            }).catch(err=>console.warn(err))
         } else {
             this._handleLike(this._id).then(({likes}) => {
                 this._likes = likes.length
                 this._likeElement.classList.add('card-list__footer-button_active')
                 this._isLiked = !this._isLiked
                 this._likesCount.textContent = likes.length
-            })
+            }).catch(err=>console.warn(err))
         }
-
     }
 
     _remove = () => {
