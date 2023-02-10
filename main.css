@@ -627,6 +627,13 @@ template {
     white-space: nowrap;
     overflow: hidden;
 }
+.card-list__likes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
 .card-list__footer-button {
     border: 0;
     outline: none;
